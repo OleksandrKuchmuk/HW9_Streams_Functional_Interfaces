@@ -17,15 +17,35 @@ public class Task1 {
         List<List<Integer>> values = new ArrayList<>(List.of(numbers, numbers2));
         LOGGER.info(values);
 
-        List<Integer> result = values.stream().flatMap(x -> x.stream()).sorted().collect(Collectors.toList());
+        List<Integer> result = alignTheList(values);
         LOGGER.info(result);
 
-        result.add(null);
-        LOGGER.info(result);
+        List<Integer> sortedResult = sortList(result);
+        LOGGER.info(sortedResult);
 
-        List<Integer> numbersNotNull = result.stream()
+        List<Integer> resultWithNull = addElementToList(sortedResult, null);
+        LOGGER.info(resultWithNull);
+
+        List<Integer> numbersNotNull = changeNull(resultWithNull);
+        LOGGER.info(numbersNotNull);
+    }
+
+    private static List<Integer> alignTheList(List<List<Integer>> inputList) {
+        return inputList.stream().flatMap(x -> x.stream()).collect(Collectors.toList());
+    }
+
+    private static List<Integer> sortList(List<Integer> list) {
+        return list.stream().sorted().collect(Collectors.toList());
+    }
+
+    private static List<Integer> addElementToList(List<Integer> list, Integer e) {
+        list.add(e);
+        return list;
+    }
+
+    private static List<Integer> changeNull(List<Integer> list) {
+        return list.stream()
                 .map(x -> Optional.ofNullable(x).orElse(55))
                 .collect(Collectors.toList());
-        LOGGER.info(numbersNotNull);
     }
 }
