@@ -9,6 +9,8 @@ public interface Operations {
 
     int multiplication(int x);
 
+
+
     default void methodDefault1(){
         LOGGER.info("Default method # 1");
     }
